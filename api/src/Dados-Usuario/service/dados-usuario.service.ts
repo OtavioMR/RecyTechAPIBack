@@ -1,10 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DadosUsuario } from '../entity/dados-usuario.entity';
 import { CreateDadosUsuarioDto } from '../dto/create-dados-usuario.dto';
 import { UpdateDadosUsuarioDto } from '../dto/update-dados-usuario';
-import { Usuario } from '../../../Usuario/entity/usuario.entity';
+import { Usuario } from '../../Usuario/entity/usuario.entity';
 
 @Injectable()
 export class DadosUsuarioService {

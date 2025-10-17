@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
-import { DadosUsuario } from '../../Dados-Usuario/Usuario/entity/dados-usuario.entity';
+import { DadosUsuario } from '../../Dados-Usuario/entity/dados-usuario.entity';
 
-@Entity()
+@Entity('Usuario')
 export class Usuario {
   @PrimaryGeneratedColumn()
   id: number;
@@ -9,7 +9,7 @@ export class Usuario {
   @Column()
   nomeCompleto: string;
 
-  @Column()
+  @Column({ unique: true })
   nomeUsuario: string;
 
   @Column({ unique: true })
