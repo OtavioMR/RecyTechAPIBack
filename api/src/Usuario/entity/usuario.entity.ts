@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
 import { DadosUsuario } from '../../Dados-Usuario/entity/dados-usuario.entity';
+import { EnderecoUsuario } from '../../endereco-usuario/entity/endereco-usuario.entity';
 
 @Entity('Usuario')
 export class Usuario {
@@ -20,4 +21,7 @@ export class Usuario {
 
   @OneToOne(() => DadosUsuario, (dadosUsuario) => dadosUsuario.usuario)
   dadosUsuario: DadosUsuario;
+
+  @OneToOne(() => EnderecoUsuario, (enderecoUsuario) => enderecoUsuario.usuario)
+  enderecoUsuario: EnderecoUsuario;
 }

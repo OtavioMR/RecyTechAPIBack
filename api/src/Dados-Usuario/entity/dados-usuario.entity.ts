@@ -11,22 +11,7 @@ export class DadosUsuario {
 
   @Column()
   telefone: string;
-
-  // @Column()
-  // endereco: string;
-
-  // @Column()
-  // cidade: string;
-
-  // @Column()
-  // estado: string;
-
-  // @Column()
-  // cep: string;
-
-  // @Column()
-  // complemento: string;
-
+  
   @OneToOne(() => Usuario, usuario => usuario.dadosUsuario)
   @JoinColumn()
   usuario: Usuario;

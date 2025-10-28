@@ -41,7 +41,7 @@ export class UsuarioService {
   }
 
   async findOne(id: number) {
-    const usuario = await this.usuarioRepository.findOne({ where: { id } });
+    const usuario = await this.usuarioRepository.findOne({ where: { id }, relations: ['dadosUsuario'], });
 
     if (!usuario) {
       throw new NotFoundException('Usuário não encontrado');
@@ -100,5 +100,9 @@ export class UsuarioService {
     }
 
     return this.usuarioRepository.delete(id);
+  }
+
+  async findByEmail(email: string) {
+    return this.usuarioRepository.findOne({ where: { email } });
   }
 }

@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UsuarioModule } from './Usuario/usuario.module';
 import { DadosUsuarioModule } from './Dados-Usuario/dados-usuario.module';
+import { AuthModule } from './auth/auth.module';
+import { EnderecoUsuarioModule } from './endereco-usuario/endereco-usuario.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { DadosUsuarioModule } from './Dados-Usuario/dados-usuario.module';
     }),
     UsuarioModule,
     DadosUsuarioModule,
+    AuthModule,
+    EnderecoUsuarioModule,
   ],
   controllers: [],
   providers: [],
