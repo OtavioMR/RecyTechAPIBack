@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { Usuario } from '../../Usuario/entity/usuario.entity';
 
 @Entity('EnderecoUsuario')
@@ -22,7 +22,7 @@ export class EnderecoUsuario {
     @Column()
     complemento: string;
 
-    @OneToOne(() => Usuario, usuario => usuario.enderecoUsuario)
+    @ManyToOne(() => Usuario, usuario => usuario.enderecoUsuario)
     @JoinColumn()
     usuario: Usuario;
 }

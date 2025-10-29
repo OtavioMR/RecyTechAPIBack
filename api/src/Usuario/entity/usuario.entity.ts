@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany } from 'typeorm';
 import { DadosUsuario } from '../../Dados-Usuario/entity/dados-usuario.entity';
 import { EnderecoUsuario } from '../../endereco-usuario/entity/endereco-usuario.entity';
 
@@ -22,6 +22,6 @@ export class Usuario {
   @OneToOne(() => DadosUsuario, (dadosUsuario) => dadosUsuario.usuario)
   dadosUsuario: DadosUsuario;
 
-  @OneToOne(() => EnderecoUsuario, (enderecoUsuario) => enderecoUsuario.usuario)
+  @OneToMany(() => EnderecoUsuario, (enderecoUsuario) => enderecoUsuario.usuario)
   enderecoUsuario: EnderecoUsuario;
 }
