@@ -6,12 +6,14 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
 import { UsuarioModule } from '../Usuario/usuario.module'; // importa seu módulo de usuário
+import { CatadorModule } from 'src/catador/catador.module';
 
 @Module({
   imports: [
     ConfigModule,
     PassportModule,
     UsuarioModule,
+    CatadorModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

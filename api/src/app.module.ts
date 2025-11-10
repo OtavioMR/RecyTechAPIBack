@@ -5,6 +5,8 @@ import { UsuarioModule } from './Usuario/usuario.module';
 import { DadosUsuarioModule } from './Dados-Usuario/dados-usuario.module';
 import { AuthModule } from './auth/auth.module';
 import { EnderecoUsuarioModule } from './endereco-usuario/endereco-usuario.module';
+import { CatadorModule } from './catador/catador.module';
+import { DadosCatadorModule } from './dados-catador/dados-catador.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { EnderecoUsuarioModule } from './endereco-usuario/endereco-usuario.modul
     DadosUsuarioModule,
     AuthModule,
     EnderecoUsuarioModule,
+    CatadorModule,
+    DadosCatadorModule,
   ],
   controllers: [],
   providers: [],

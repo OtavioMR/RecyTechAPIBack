@@ -1,18 +1,30 @@
 import { Controller, Post, Body, UsePipes, ValidationPipe, HttpCode, HttpStatus, Get, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto/login.dto';
+import { LoginUsuarioDto } from './dto/loginUsuario.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { Req } from '@nestjs/common/decorators/http/route-params.decorator';
+import { validate } from 'class-validator';
+import { LoginCatadorDto } from './dto/loginCatador.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post('login')
+
+  //Login Usuário
+  @Post('login/usuario')
   @HttpCode(HttpStatus.OK)
   @UsePipes(new ValidationPipe({ whitelist: true }))
-  async login(@Body() dto: LoginDto) {
-    return this.authService.login(dto.email, dto.senha);
+  async loginUsuario(@Body() dto: LoginUsuarioDto) {
+    return this.authService.loginUsuario(dto.email, dto.senha);
+  }
+
+  //Login Catador
+  @Post('catador/login')
+  @HttpCode(HttpStatus.OK)
+  @UsePipes(new ValidationPipe({whitelist: true}))
+  async loginCatador(@Body() dto: LoginCatadorDto) {
+    return this.authService.loginCatador(dto.email, dto.senha);
   }
 
   @UseGuards(JwtAuthGuard)
