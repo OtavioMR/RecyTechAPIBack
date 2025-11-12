@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { UnauthorizedException } from '@nestjs/common';
 import { CatadorService } from 'src/catador/catador.service';
 import { NotFoundError } from 'rxjs';
+import { DadosUsuario } from 'src/Dados-Usuario/entity/dados-usuario.entity';
 
 @Injectable()
 export class AuthService {
@@ -16,26 +17,26 @@ export class AuthService {
     ) { }
 
     async loginUsuario(email: string, senha: string) {
-        // 1) Buscar usuário pelo email
-        const usuario = await this.usuarioService.findByEmail(email);
-        if (!usuario) {
+        const dadosUsuario = await this.usuarioService.findByEmail(email);
+
+        if (!dadosUsuario || !dadosUsuario.usuario) {
             throw new UnauthorizedException('Credenciais inválidas');
         }
 
-        // 2) Verificar senha
-        const senhaValida = await bcrypt.compare(senha, usuario.senha);
+        const senhaValida = await bcrypt.compare(senha, dadosUsuario.usuario.senha);
         if (!senhaValida) {
             throw new UnauthorizedException('Credenciais inválidas');
         }
 
-        // 3) Gerar token JWT
-        const payload = { sub: usuario.id, role: 'usuario' };
+        const payload = { sub: dadosUsuario.usuario.id, role: 'usuario' };
         const token = this.jwtService.sign(payload);
 
         return {
-            access_token: token, usuario
+            access_token: token,
+            usuario: dadosUsuario.usuario,
         };
     }
+
 
     async loginCatador(email: string, senha: string) {
         const catador = await this.catadorService.findByEmail(email);

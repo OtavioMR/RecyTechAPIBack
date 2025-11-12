@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { EnderecoUsuarioModule } from './endereco-usuario/endereco-usuario.module';
 import { CatadorModule } from './catador/catador.module';
 import { DadosCatadorModule } from './dados-catador/dados-catador.module';
+import { VeiculoCatadorModule } from './veiculo-catador/veiculo-catador.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { DadosCatadorModule } from './dados-catador/dados-catador.module';
     EnderecoUsuarioModule,
     CatadorModule,
     DadosCatadorModule,
+    VeiculoCatadorModule,
   ],
   controllers: [],
   providers: [],

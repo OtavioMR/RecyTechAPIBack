@@ -1,8 +1,9 @@
 export class CreateEnderecoUsuarioDto {
-    endereco: string;
+    bairro: string;
     cidade: string;
     estado: string;
     cep: string;
+    rua: string;
+    numero: string;
     complemento: string;
-    usuarioId: number; // referência ao usuário
 }

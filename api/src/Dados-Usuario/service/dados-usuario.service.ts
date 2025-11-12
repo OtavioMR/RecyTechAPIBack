@@ -15,15 +15,6 @@ export class DadosUsuarioService {
     private usuarioRepository: Repository<Usuario>,
   ) { }
 
-  // CREATE
-  async create(createDto: CreateDadosUsuarioDto) {
-    const usuario = await this.usuarioRepository.findOneBy({ id: createDto.usuarioId });
-    if (!usuario) throw new NotFoundException('Usuário não encontrado');
-
-    const dados = this.dadosUsuarioRepository.create({ ...createDto, usuario });
-    return this.dadosUsuarioRepository.save(dados);
-  }
-
   // READ ALL
   findAll() {
     return this.dadosUsuarioRepository.find({ relations: ['usuario'] });
@@ -39,10 +30,21 @@ export class DadosUsuarioService {
     return dados;
   }
 
-  // UPDATE
-  async update(id: number, updateDto: UpdateDadosUsuarioDto) {
-    const dados = await this.findOne(id);
+  // UPDATE parcial dos dados do usuário
+  async updateDados(updateDto: Partial<CreateDadosUsuarioDto>, usuarioId: number) {
+    // Busca os dados já existentes
+    const dados = await this.dadosUsuarioRepository.findOne({
+      where: { usuario: { id: usuarioId } },
+      relations: ['usuario'], // garante que a relação venha carregada
+    });
+
+    if (!dados) {
+      throw new NotFoundException('Dados do usuário não encontrados');
+    }
+
+    // Atualiza apenas os campos enviados (cpf, telefone, etc.)
     Object.assign(dados, updateDto);
+
     return this.dadosUsuarioRepository.save(dados);
   }
 

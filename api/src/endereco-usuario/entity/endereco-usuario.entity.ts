@@ -8,7 +8,7 @@ export class EnderecoUsuario {
     id: number;
 
     @Column()
-    endereco: string;
+    bairro: string;
 
     @Column()
     cidade: string;
@@ -20,6 +20,12 @@ export class EnderecoUsuario {
     cep: string;
 
     @Column()
+    numero: string;
+
+    @Column()
+    logradouro: string;
+
+    @Column({nullable: true})
     complemento: string;
 
     @ManyToOne(() => Usuario, usuario => usuario.enderecoUsuario)

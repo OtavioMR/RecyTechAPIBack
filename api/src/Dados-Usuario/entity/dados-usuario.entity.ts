@@ -6,11 +6,14 @@ export class DadosUsuario {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({nullable: true})
   cpf: string;
 
-  @Column()
+  @Column({nullable: true})
   telefone: string;
+
+  @Column({unique: true})
+  emailUsuario: string;
   
   @OneToOne(() => Usuario, usuario => usuario.dadosUsuario)
   @JoinColumn()

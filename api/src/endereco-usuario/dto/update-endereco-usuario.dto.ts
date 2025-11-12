@@ -1,7 +1,9 @@
 export class UpdateDadosUsuarioDto {
-    endereco?: string;
+    bairro?: string;
     cidade?: string;
     estado?: string;
     cep?: string;
+    logradouro?: string;
+    numero?: string;
     complemento?: string;
 }

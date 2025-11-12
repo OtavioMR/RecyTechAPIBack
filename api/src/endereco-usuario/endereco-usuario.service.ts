@@ -16,8 +16,8 @@ export class EnderecoUsuarioService {
         private usuarioRepository: Repository<Usuario>,
     ) { }
 
-    async create(createDto: CreateEnderecoUsuarioDto) {
-        const usuario = await this.usuarioRepository.findOneBy({ id: createDto.usuarioId });
+    async create(createDto: CreateEnderecoUsuarioDto, usuarioId: number) {
+        const usuario = await this.usuarioRepository.findOne({ where: {id: usuarioId} });
         if (!usuario) throw new Error('Usuário não encontrado');
 
         const endereco = this.enderecoUsuarioRepository.create({ ...createDto, usuario });

@@ -1,16 +1,13 @@
-import { Controller, Get, Post, Body, Param, Put, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Patch, Delete, UseGuards, Request } from '@nestjs/common';
 import { DadosUsuarioService } from '../service/dados-usuario.service';
 import { CreateDadosUsuarioDto } from '../dto/create-dados-usuario.dto';
 import { UpdateDadosUsuarioDto } from '../dto/update-dados-usuario';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { BADFAMILY } from 'dns';
 
 @Controller('dados-usuario')
 export class DadosUsuarioController {
   constructor(private readonly dadosService: DadosUsuarioService) {}
-
-  @Post()
-  create(@Body() createDto: CreateDadosUsuarioDto) {
-    return this.dadosService.create(createDto);
-  }
 
   @Get('todos')
   findAll() {
@@ -22,14 +19,10 @@ export class DadosUsuarioController {
     return this.dadosService.findOne(id);
   }
 
-  @Put(':id')
-  update(@Param('id') id: number, @Body() updateDto: UpdateDadosUsuarioDto) {
-    return this.dadosService.update(id, updateDto);
-  }
-
-  @Patch(':id')
-  patch(@Param('id') id: number, @Body() updateDto: UpdateDadosUsuarioDto) {
-    return this.dadosService.update(id, updateDto);
+  @UseGuards(JwtAuthGuard)
+  @Patch('/att')
+  patch(@Body() dto: CreateDadosUsuarioDto, @Request() req) {
+    return this.dadosService.updateDados(dto, req.user.id);
   }
 
   @Delete(':id')

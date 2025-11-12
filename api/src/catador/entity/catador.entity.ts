@@ -1,4 +1,5 @@
 import { DadosCatador } from "src/dados-catador/entity/dados-catador.entity";
+import { VeiculoCatador } from "src/veiculo-catador/entity/veiculo.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Catador')
@@ -24,6 +25,7 @@ export class Catador{
     dadosCatador: DadosCatador;
 
     //Fazer relacionamento com os veiculos do catador
-
+    @OneToMany(() => VeiculoCatador, (VeiculoCatador) => VeiculoCatador.catador)
+    veiculoCatador: VeiculoCatador;
     
 }
