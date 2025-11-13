@@ -7,14 +7,16 @@ export class DadosCatador{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({unique: true})
+    @Column({unique: true, nullable: true})
     cpf: string;
 
-    @Column()
+    @Column({nullable: true})
     telefone: string; 
+
+    @Column({unique: true})
+    email: string;
 
     @ManyToOne(() => Catador, catador => catador.dadosCatador)
     @JoinColumn()
     catador: Catador;
-
 }

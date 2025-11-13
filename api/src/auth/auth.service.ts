@@ -7,6 +7,7 @@ import { UnauthorizedException } from '@nestjs/common';
 import { CatadorService } from 'src/catador/catador.service';
 import { NotFoundError } from 'rxjs';
 import { DadosUsuario } from 'src/Dados-Usuario/entity/dados-usuario.entity';
+import { DadosCatador } from 'src/dados-catador/entity/dados-catador.entity';
 
 @Injectable()
 export class AuthService {
@@ -40,11 +41,10 @@ export class AuthService {
 
     async loginCatador(email: string, senha: string) {
         const catador = await this.catadorService.findByEmail(email);
-        if (!catador) {
-            throw new NotFoundException('Credenciais inválidas');
-        }
 
-        const senhaInvalida = await bcrypt.compare(senha, catador.senha);
+        if(!catador || !catador.catador) throw new UnauthorizedException('Credenciais inválidas');
+       
+        const senhaInvalida = await bcrypt.compare(senha, catador.catador.senha);
         if (!senhaInvalida) {
             throw new NotFoundException('Credenciais inválidas');
         }

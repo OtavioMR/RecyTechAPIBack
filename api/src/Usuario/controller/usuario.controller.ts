@@ -19,9 +19,10 @@ export class UsuarioController {
     return this.usuarioService.findAll();
   }
 
-  @Get('id/:id')
-  findOne(@Param('id') id: number) {
-    return this.usuarioService.findOne(id);
+  @UseGuards(JwtAuthGuard)
+  @Get('usuario-logado')
+  findOne(@Request() req) {
+    return this.usuarioService.findOne(req.user.id);
   }
 
   @Put(':id')

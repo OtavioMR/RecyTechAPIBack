@@ -8,6 +8,9 @@ import { EnderecoUsuarioModule } from './endereco-usuario/endereco-usuario.modul
 import { CatadorModule } from './catador/catador.module';
 import { DadosCatadorModule } from './dados-catador/dados-catador.module';
 import { VeiculoCatadorModule } from './veiculo-catador/veiculo-catador.module';
+import { TipoLixoModule } from './tipo-lixo/tipo-lixo.module';
+import { PedidoModule } from './pedido/pedido.module';
+import { ItemPedidoModule } from './item-pedido/item-pedido.module';
 
 @Module({
   imports: [
@@ -29,6 +32,9 @@ import { VeiculoCatadorModule } from './veiculo-catador/veiculo-catador.module';
     CatadorModule,
     DadosCatadorModule,
     VeiculoCatadorModule,
+    TipoLixoModule,
+    PedidoModule,
+    ItemPedidoModule,
   ],
   controllers: [],
   providers: [],

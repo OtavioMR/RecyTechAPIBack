@@ -18,7 +18,11 @@ export class CatadorService {
 
     async create(dto: CreateCatadorDto) {
 
-        const emailExistente = await this.catadorRepository.findOne({ where: { email: dto.email } });
+        const emailExistente = await this.dadosCatadorRepository.findOne({ 
+            where: { email: dto.email },
+            relations: ['catador'],
+         });
+
         if (emailExistente) {
             throw new ConflictException('Já existe um usuário com este email');
         }
@@ -34,8 +38,28 @@ export class CatadorService {
         const senhaCriptografada = await bcrypt.hash(dto.senha, randomSalt);
         dto.senha = senhaCriptografada;
 
-        const catador = this.catadorRepository.create(dto);
-        return this.catadorRepository.save(catador);
+
+        // Cria e salva usuário
+        const usuario = this.catadorRepository.create({
+            nomeCompleto: dto.nomeCompleto,
+            nomeUsuario: dto.nomeUsuario,
+            senha: dto.senha,
+        });
+        const usuarioSalvo = await this.catadorRepository.save(usuario);
+
+
+        // Cria e salva dados do usuário
+        const dadosUsuario = this.dadosCatadorRepository.create({
+            email: dto.email,
+            catador: usuarioSalvo, //relacionamento
+        });
+        const dadosUsuarioSalvo = await this.dadosCatadorRepository.save(dadosUsuario);
+
+        // Retorna objeto com os dois registros
+        return {
+            usuario: usuarioSalvo,
+            dadosUsuario: dadosUsuarioSalvo,
+        };
     }
 
     async findAll() {
@@ -52,6 +76,9 @@ export class CatadorService {
     }
 
     async findByEmail(email: string) {
-        return this.catadorRepository.findOne({ where: { email } });
+        return this.dadosCatadorRepository.findOne({ 
+            where: { email },
+            relations: ['catador']
+         });
     }
 }
