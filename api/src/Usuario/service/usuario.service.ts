@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Usuario } from '../entity/usuario.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -19,6 +19,11 @@ export class UsuarioService {
   ) { }
 
   async create(dto: CreateUsuarioDto) {
+
+    if(dto.nomeCompleto == null || dto.nomeUsuario == null || dto.email == null || dto.senha == null){
+      throw new UnauthorizedException("Dados não podem ser nulos");
+    }
+
     // Verifica duplicidade de email
     const emailExistente = await this.dadosUsuarioRepository.findOne({ where: { emailUsuario: dto.email } });
     if (emailExistente) throw new ConflictException('Email já cadastrado');
